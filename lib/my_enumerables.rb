@@ -11,7 +11,8 @@ module Enumerable
   end
 
   def my_select
-    selected = my_each { |val| val if yield(val) }
+    selected = []
+    my_each { |val| selected << val if yield(val) }
 
     return selected
   end
