@@ -1,5 +1,83 @@
 module Enumerable
-  # Your code goes here
+  # Your code goes here.
+  def my_each_with_index
+    idx = 0
+    my_each do |val|
+      yield(val, idx)
+      idx +=1
+    end
+    
+    return self
+  end
+
+  def my_select
+    selected = []
+    my_each do |val|
+      selected << val if yield(val)
+    end
+
+    return selected
+  end
+
+  def my_all?
+    my_each do |val|
+      if !yield(val)
+        return false
+      end
+    end
+    
+    return true
+  end
+
+  def my_any?
+    my_each do |val|
+      if yield(val)
+        return true
+      end
+    end
+    
+    return false
+  end
+
+  def my_none?
+    my_each do |val|
+      if yield(val)
+        return false
+      end
+    end
+    
+    return true
+  end
+
+  def my_count
+    return self.size unless block_given?
+    count = 0
+    my_each do |val|
+      if yield(val)
+        count += 1
+      end
+    end
+    
+    return count
+  end
+
+  def my_map
+    mapped_arr = []
+    my_each do |val|
+      mapped_arr << yield(val)
+    end
+    
+    return mapped_arr
+  end
+
+  def my_inject(initial_value=0)
+    total = initial_value
+    my_each do |val|
+      total = yield(total, val)
+    end
+    
+    return total
+  end
 end
 
 # You will first have to define my_each
@@ -8,4 +86,11 @@ end
 # to this method
 class Array
   # Define my_each here
+  def my_each
+    for val in self
+      yield(val)
+    end
+
+    self
+  end
 end
