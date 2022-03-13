@@ -11,62 +11,36 @@ module Enumerable
   end
 
   def my_select
-    selected = []
-    my_each do |val|
-      selected << val if yield(val)
-    end
-
+    selected = my_each { |val| val if yield(val) }
     return selected
   end
 
   def my_all?
-    my_each do |val|
-      if !yield(val)
-        return false
-      end
-    end
-    
+    my_each { |val| return false if !yield(val) }  
     return true
   end
 
   def my_any?
-    my_each do |val|
-      if yield(val)
-        return true
-      end
-    end
-    
+    my_each { |val| return true if yield(val) }  
     return false
   end
 
   def my_none?
-    my_each do |val|
-      if yield(val)
-        return false
-      end
-    end
-    
+    my_each { |val| return false if yield(val) }
+
     return true
   end
 
   def my_count
     return self.size unless block_given?
     count = 0
-    my_each do |val|
-      if yield(val)
-        count += 1
-      end
-    end
-    
+    my_each { |val| count += 1 if yield(val) }  
     return count
   end
 
   def my_map
     mapped_arr = []
-    my_each do |val|
-      mapped_arr << yield(val)
-    end
-    
+    my_each { |val| mapped_arr << yield(val)}   
     return mapped_arr
   end
 
