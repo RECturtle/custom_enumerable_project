@@ -6,22 +6,25 @@ module Enumerable
       yield(val, idx)
       idx +=1
     end
-    
+
     return self
   end
 
   def my_select
     selected = my_each { |val| val if yield(val) }
+
     return selected
   end
 
   def my_all?
-    my_each { |val| return false if !yield(val) }  
+    my_each { |val| return false if !yield(val) }
+
     return true
   end
 
   def my_any?
-    my_each { |val| return true if yield(val) }  
+    my_each { |val| return true if yield(val) }
+
     return false
   end
 
@@ -33,14 +36,17 @@ module Enumerable
 
   def my_count
     return self.size unless block_given?
+
     count = 0
-    my_each { |val| count += 1 if yield(val) }  
+    my_each { |val| count += 1 if yield(val) }
+
     return count
   end
 
   def my_map
     mapped_arr = []
-    my_each { |val| mapped_arr << yield(val)}   
+    my_each { |val| mapped_arr << yield(val)}
+
     return mapped_arr
   end
 
@@ -49,7 +55,7 @@ module Enumerable
     my_each do |val|
       total = yield(total, val)
     end
-    
+
     return total
   end
 end
